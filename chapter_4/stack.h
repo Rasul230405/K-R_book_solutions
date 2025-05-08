@@ -3,5 +3,7 @@
 
 void push(double val);
 double pop();
+double top();
+void clear();
 
 #endif

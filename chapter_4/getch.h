@@ -1,7 +1,8 @@
 #ifndef GETCH_HEADER
 #define GETHC_HEADER
 
-void ungetch(char c);
+int ungetch(char c);
 char getch();
+int ungets(const char *s);
 
 #endif

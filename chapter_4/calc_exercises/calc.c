@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "stack.h"
-#include "getch.h"
+#include "../stack.h"
+#include "../getch.h"
 
 #define SIZE 1000
 #define NUMBER '0'
+#define DUPLICATE '!'
+#define SWAP '>'
+#define CLEAR 'c'
 
 int getop(char s[]);
 
@@ -13,8 +16,9 @@ int main(void)
 {
   char s[SIZE];
   char type;
+  double op1;
   double op2;
-
+  
   while ((type = getop(s)) != EOF) {
     switch(type) {
     case NUMBER:
@@ -26,8 +30,10 @@ int main(void)
     case '-':
       op2 = pop();
       push(pop() - op2);
+      break;
     case '*':
       push(pop() * pop());
+      break;
     case '/':
       op2 = pop();
       if (op2 == 0)
@@ -42,8 +48,22 @@ int main(void)
       else
 	push((int)pop() % (int)op2);
       break;
+    case '=':
+      printf("\t%.8g\n", top());
+      break;
+    case CLEAR:
+      clear();
+      break;
+    case DUPLICATE:
+      push(top());
+      break;
+    case SWAP:
+      op1 = pop();
+      op2 = pop();
+      push(op1);
+      push(op2);
+      break;
     case '\n':
-      printf("\t%.8g\n", pop());
       break;
     default:
       printf("error: unknown command %s\n", s);
